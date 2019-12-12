@@ -1,0 +1,10 @@
+<# Exemplo de 'cd': set-location "C:/Users/t722632/Documents/git-repositories" #>
+<# exibe apenas prints, comandos ficam escondidos #>
+clear
+get-childitem -path "c:your/path/here/git-repositories" | foreach-object {
+    if ( (get-item $_.FullName) -is [System.IO.DirectoryInfo] ) {
+        write-host Atualizando repositório $_.BaseName
+        set-location $_.FullName
+        git pull
+    }
+}
